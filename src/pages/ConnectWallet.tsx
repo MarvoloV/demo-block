@@ -1,6 +1,7 @@
 import { shallow } from "zustand/shallow";
 import useWalletStore from "../store/walletStore";
 import { useEffect } from "react";
+import { mintToken } from "../web3/payment/pay";
 
 export const ConnectWallet = () => {
   const { connectWallet } = useWalletStore();
@@ -12,6 +13,9 @@ export const ConnectWallet = () => {
   );
   const handlerConnect = () => {
     connectWallet();
+  };
+  const handlerPermit = async () => {
+    const response = await mintToken(1, 2);
   };
   useEffect(() => {
     if (window.ethereum) {
@@ -53,7 +57,10 @@ export const ConnectWallet = () => {
               </p>
               <p className="text-5xl font-semibold ">{currentAccount}</p>
             </div>
-            <button className="inline-flex text-white bg-blue-600 hover:bg-blue-800   font-medium rounded-xl text-4xl px-10 py-5 text-center  my-1">
+            <button
+              className="inline-flex text-white bg-blue-600 hover:bg-blue-800   font-medium rounded-xl text-4xl px-10 py-5 text-center  my-1"
+              onClick={() => handlerPermit()}
+            >
               Permitir
             </button>
           </div>
