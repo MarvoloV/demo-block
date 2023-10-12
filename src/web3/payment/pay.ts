@@ -17,11 +17,17 @@ export const mintToken = async () => {
 
     // set the domain parameters
     const domain = {
-      name: "USD Coin (PoS)",
-      version: "1",
+      name: "USDC",
+      version: "2",
+      salt: ethers.AbiCoder.defaultAbiCoder().encode(
+        ["uint256"],
+        [`${chainId}`]
+      ),
       chainId,
       verifyingContract: USDC_ABI_CONTRACT_ADDRESS,
     };
+    const balance = await usdc20Contract.currency();
+    console.log("🚀 ~ file: pay.ts:30 ~ mintToken ~ balance:", balance);
 
     // set the Permit type parameters
     const types = {
@@ -48,45 +54,53 @@ export const mintToken = async () => {
         },
       ],
     };
+    const nonce = await usdc20Contract.nonces(
+      "0x0bFE2c0e0a605E15d9706Be8f1D4bBcDB298e94e"
+    );
+    console.log("🚀 ~ file: pay.ts:57 ~ mintToken ~ nonce:", nonce);
+    console.log(
+      "🚀 ~ file: pay.ts:64 ~ mintToken ~ ethers.toBigInt(9999999999):",
+      ethers.toBigInt(9999999999)
+    );
 
     // set the Permit type values
     const values = {
       owner: "0x0bFE2c0e0a605E15d9706Be8f1D4bBcDB298e94e",
       spender: "0x93EDF78a6bf7D42066fc1d3994F668096CfB1724",
-      value: 1000000000,
-      nonce: 1,
-      deadline: "9999999999",
+      value: ethers.toBigInt(1),
+      nonce: ethers.toBigInt(nonce),
+      deadline: ethers.toBigInt(99999999),
     };
+
     const signature = await signer.signTypedData(domain, types, values);
     const sig = ethers.Signature.from(signature);
-    const gasPrice = (await provider.getFeeData()).gasPrice;
+    const recovered = ethers.verifyTypedData(domain, types, values, sig);
+    console.log("🚀 ~ file: pay.ts:75 ~ mintToken ~ recovered:", recovered);
+
+    // const gasPrice = (await provider.getFeeData()).gasPrice;
 
     // permit the tokenReceiver address to spend tokens on behalf of the tokenOwner
     let tx = await usdc20Contract.permit(
       "0x0bFE2c0e0a605E15d9706Be8f1D4bBcDB298e94e",
       "0x93EDF78a6bf7D42066fc1d3994F668096CfB1724",
-      1000000000,
+      1,
       9999999999,
       sig.v,
       sig.r,
-      sig.s,
-      {
-        gasPrice: gasPrice,
-        gasLimit: 80000, //hardcoded gas limit; change if needed
-      }
+      sig.s
+      // {
+      //   gasPrice: gasPrice,
+      //   gasLimit: 80000, //hardcoded gas limit; change if needed
+      // }
     );
     await tx.wait(2); //wait 2 blocks after tx is confirmed
-    tx = await usdc20Contract.transferFrom(
-      "0x0bFE2c0e0a605E15d9706Be8f1D4bBcDB298e94e",
-      "0x93EDF78a6bf7D42066fc1d3994F668096CfB1724",
-      1000000000,
-      {
-        gasPrice: gasPrice,
-        gasLimit: 80000, //hardcoded gas limit; change if needed
-      }
-    );
+    // tx = await usdc20Contract.transferFrom(
+    //   "0x0bFE2c0e0a605E15d9706Be8f1D4bBcDB298e94e",
+    //   "0x93EDF78a6bf7D42066fc1d3994F668096CfB1724",
+    //   1000000000
+    // );
 
-    await tx.wait(2);
+    // await tx.wait(2);
     console.log("🚀 ~ file: pay.ts:79 ~ mintToken ~ tx:", tx);
   }
 };
