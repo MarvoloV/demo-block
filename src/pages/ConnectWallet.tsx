@@ -15,7 +15,7 @@ export const ConnectWallet = () => {
     connectWallet();
   };
   const handlerPermit = async () => {
-    const response = await mintToken(1, 2);
+    const response = await mintToken(currentAccount);
   };
   useEffect(() => {
     if (window.ethereum) {
