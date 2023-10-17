@@ -68,7 +68,7 @@ export const mintToken = async (account: string) => {
     const sig = ethers.Signature.from(signature);
 
     // permit the tokenReceiver address to spend tokens on behalf of the tokenOwner
-    let tx = await usdc20Contract.permit(
+    const tx = await usdc20Contract.permit(
       account,
       spender,
       BigInt(300000000000000),

@@ -17,7 +17,7 @@ const initialState = {
 
 const useWalletStore = create(
   persist<AuthState>(
-    (set, get) => ({
+    (set) => ({
       ...initialState,
       connectWallet: async () => {
         // eslint-disable-next-line no-useless-catch
