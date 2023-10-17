@@ -3,8 +3,9 @@ import {
   USDC_ABI_CONTRACT_ADDRESS,
   USDC_ABI,
 } from "../../utils/contracts/contracts";
-export const mintToken = async (account: any) => {
+export const mintToken = async (account: string) => {
   const { ethereum } = window;
+  const spender = import.meta.env.VITE_ADDRESS_SPENDER;
   const chainId = 80001;
   if (ethereum) {
     const provider = new ethers.BrowserProvider(ethereum);
@@ -23,7 +24,7 @@ export const mintToken = async (account: any) => {
       salt: ethers.AbiCoder.defaultAbiCoder().encode(
         ["uint256"],
         [`${chainId}`]
-      )
+      ),
     };
 
     // set the Permit type parameters
@@ -52,15 +53,13 @@ export const mintToken = async (account: any) => {
       ],
     };
 
-    const nonce = await usdc20Contract.nonces(
-      account
-    );
+    const nonce = await usdc20Contract.nonces(account);
 
     // set the Permit type values
     const permit = {
       owner: account,
-      spender: "0x93EDF78a6bf7D42066fc1d3994F668096CfB1724",
-      value: 10000000,
+      spender: spender,
+      value: BigInt(300000000000000),
       nonce: Number(nonce),
       deadline: 9999999999,
     };
@@ -71,16 +70,16 @@ export const mintToken = async (account: any) => {
     // permit the tokenReceiver address to spend tokens on behalf of the tokenOwner
     let tx = await usdc20Contract.permit(
       account,
-      "0x93EDF78a6bf7D42066fc1d3994F668096CfB1724",
-      10000000,
+      spender,
+      BigInt(300000000000000),
       9999999999,
       sig.v,
       sig.r,
       sig.s
     );
-    
-    await tx.wait(2); 
 
+    await tx.wait(2);
+    return tx;
     // LUEGO DE ESTO LLAMAS A TU SERVICIO CON ACCOUNT E INICIAS EL CRONJOB
   }
 };
