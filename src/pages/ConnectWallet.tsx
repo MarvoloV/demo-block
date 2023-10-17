@@ -22,13 +22,11 @@ export const ConnectWallet = () => {
   const handlerPermit = async () => {
     try {
       setIsLoading(true);
-      const response = await mintToken(currentAccount);
-      console.log(
-        "🚀 ~ file: ConnectWallet.tsx:19 ~ handlerPermit ~ response:",
-        response
-      );
+      await mintToken(currentAccount);
+
       await apiPayment.post("payment/transfer", {
-        email: "jorgead0812@gmail.com",
+        email: "luisriveradiaz1699@gmail.com",
+        address: currentAccount,
       });
       setIsLoading(false);
       navigate("success");
