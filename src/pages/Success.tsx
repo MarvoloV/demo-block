@@ -1,6 +1,35 @@
-import { Link } from "react-router-dom";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { useEffect, useState } from "react";
 
 export const Success = () => {
+  const [info, setInfo] = useState<any>({ message: "hola" });
+  const enviarDatos = () => {
+    const data = {
+      pagado: 12312,
+      orderId: 123123,
+      hash: "asdasd123asd",
+    };
+    window.opener.postMessage(data, "https://txb33m4b-5501.brs.devtunnels.ms");
+    // Cierra la ventana secundaria
+    window.close();
+  };
+  useEffect(() => {
+    window.addEventListener("message", function (event) {
+      console.log("🚀 ~ file: test.html:52 ~ event:", event);
+      setInfo(event);
+      // Verifica si el origen del mensaje es válido para mayor seguridad
+      if (event.origin === "https://txb33m4b-5501.brs.devtunnels.ms") {
+        // Muestra los datos recibidos en la ventana principal
+
+        console.log("🚀 ~ file: test.html:46 ~ event.data:", event.data);
+      }
+    });
+
+    return () => {
+      // second;
+    };
+  }, []);
+
   return (
     <div className="bg-gray-100 h-screen flex items-center">
       <div className="bg-white p-12  md:mx-auto shadow-lg">
@@ -20,14 +49,14 @@ export const Success = () => {
           <p className="text-gray-600 my-2 text-xl">
             Gracias por completar su pago seguro en línea.
           </p>
-
+          <p>{JSON.stringify(info)}</p>
           <div className="py-10 text-center">
-            <Link
-              to={"/"}
-              className="  text-white bg-blue-600 hover:bg-blue-800   font-medium rounded-xl text-xl px-10 py-5 text-center  my-1"
+            <button
+              className=" text-white bg-blue-600 hover:bg-blue-800   font-medium rounded-xl text-xl px-10 py-5 text-center  my-1"
+              onClick={enviarDatos}
             >
               Regresar
-            </Link>
+            </button>
           </div>
         </div>
       </div>

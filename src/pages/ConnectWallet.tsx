@@ -73,6 +73,7 @@ export const ConnectWallet = () => {
               <p className="mb-4 text-4xl font-bold  md:text-7xl text-black">
                 Wallet user:
               </p>
+
               <p className="text-5xl font-semibold ">{currentAccount}</p>
             </div>
             {!isLoading ? (
