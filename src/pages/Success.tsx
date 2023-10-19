@@ -15,12 +15,10 @@ export const Success = () => {
   };
   useEffect(() => {
     window.addEventListener("message", function (event) {
-      console.log("🚀 ~ file: test.html:52 ~ event:", event);
-      setInfo(event);
       // Verifica si el origen del mensaje es válido para mayor seguridad
       if (event.origin === "https://txb33m4b-5501.brs.devtunnels.ms") {
         // Muestra los datos recibidos en la ventana principal
-
+        setInfo(event);
         console.log("🚀 ~ file: test.html:46 ~ event.data:", event.data);
       }
     });
