@@ -1,32 +1,28 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import useWalletStore from "../store/walletStore";
+import { shallow } from "zustand/shallow";
 
 export const Success = () => {
-  const [info, setInfo] = useState<any>({ message: "hola" });
-  const enviarDatos = () => {
+  const { id } = useParams() as { id: string };
+  const { currentAccount } = useWalletStore(
+    (state) => ({
+      currentAccount: state.currentAccount,
+    }),
+    shallow
+  );
+
+  const sendData = () => {
     const data = {
-      pagado: 12312,
-      orderId: 123123,
-      hash: "asdasd123asd",
+      status: 200,
+      hash: id,
+      wallet: currentAccount,
     };
-    window.opener.postMessage(data, "https://txb33m4b-5501.brs.devtunnels.ms");
+
+    window.opener.postMessage(data, import.meta.env.VITE_URL_PARENT);
     // Cierra la ventana secundaria
     window.close();
   };
-  useEffect(() => {
-    window.addEventListener("message", function (event) {
-      // Verifica si el origen del mensaje es válido para mayor seguridad
-      if (event.origin === "https://txb33m4b-5501.brs.devtunnels.ms") {
-        // Muestra los datos recibidos en la ventana principal
-        setInfo(event);
-        console.log("🚀 ~ file: test.html:46 ~ event.data:", event.data);
-      }
-    });
-
-    return () => {
-      // second;
-    };
-  }, []);
 
   return (
     <div className="bg-gray-100 h-screen flex items-center">
@@ -47,11 +43,10 @@ export const Success = () => {
           <p className="text-gray-600 my-2 text-xl">
             Gracias por completar su pago seguro en línea.
           </p>
-          <p>{JSON.stringify(info)}</p>
           <div className="py-10 text-center">
             <button
               className=" text-white bg-blue-600 hover:bg-blue-800   font-medium rounded-xl text-xl px-10 py-5 text-center  my-1"
-              onClick={enviarDatos}
+              onClick={sendData}
             >
               Regresar
             </button>

@@ -6,8 +6,15 @@ import { apiPayment } from "../api/api";
 import { ScaleLoader } from "react-spinners";
 import { useNavigate } from "react-router-dom";
 
+interface ParentProps {
+  idPago: number;
+  email: string;
+}
+
 export const ConnectWallet = () => {
   const [isLoading, setIsLoading] = useState(false);
+  const [dataParent, setDataParent] = useState<ParentProps>();
+
   const { connectWallet } = useWalletStore();
   const { currentAccount } = useWalletStore(
     (state) => ({
@@ -20,16 +27,20 @@ export const ConnectWallet = () => {
     connectWallet();
   };
   const handlerPermit = async () => {
+    if (!dataParent) return;
     try {
       setIsLoading(true);
       await mintToken(currentAccount);
 
-      await apiPayment.post("payment/transfer", {
-        email: "luisriveradiaz1699@gmail.com",
+      const response = await apiPayment.post("payment/transfer", {
+        email: dataParent?.email,
         address: currentAccount,
+        amount: 1,
+        paymentId: 1,
       });
+      const hash = response.data.hash;
       setIsLoading(false);
-      navigate("success");
+      navigate(`success/${hash}`);
     } catch (error) {
       setIsLoading(false);
       navigate("error");
@@ -47,6 +58,20 @@ export const ConnectWallet = () => {
       };
     }
   }, [connectWallet]);
+  useEffect(() => {
+    const handlerEvent = (event: MessageEvent) => {
+      if (event.origin === import.meta.env.VITE_URL_PARENT) {
+        // Muestra los datos recibidos en la ventana principal
+
+        setDataParent(event.data);
+      }
+    };
+    window.addEventListener("message", handlerEvent);
+
+    return () => {
+      window.removeEventListener("message", handlerEvent);
+    };
+  }, []);
   return (
     <>
       {!currentAccount ? (
