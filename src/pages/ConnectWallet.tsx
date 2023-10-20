@@ -14,6 +14,10 @@ interface ParentProps {
 export const ConnectWallet = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [dataParent, setDataParent] = useState<ParentProps>();
+  console.log(
+    "🚀 ~ file: ConnectWallet.tsx:17 ~ ConnectWal ~ dataParent:",
+    dataParent
+  );
 
   const { connectWallet } = useWalletStore();
   const { currentAccount } = useWalletStore(
@@ -60,6 +64,10 @@ export const ConnectWallet = () => {
   }, [connectWallet]);
   useEffect(() => {
     const handlerEvent = (event: MessageEvent) => {
+      console.log(
+        "🚀 ~ file: ConnectWallet.tsx:67 ~ handlerEvent ~ event:",
+        event
+      );
       if (event.origin === import.meta.env.VITE_URL_PARENT) {
         // Muestra los datos recibidos en la ventana principal
 
