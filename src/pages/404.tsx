@@ -1,3 +1,3 @@
 export const Page404 = () => {
-  return <div>404</div>;
+  return <div className="bg-primary">404</div>;
 };

@@ -1,7 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 
 import { ConnectWallet } from "../pages/ConnectWallet";
-import { Success } from "../pages/Success";
+import { Success, loaderSuccess } from "../pages/Success";
 import { ErrorView } from "../pages/ErrorView";
 import { Page404 } from "../pages/404";
 
@@ -14,6 +14,8 @@ export const router = createBrowserRouter([
   {
     path: "success/:id",
     element: <Success />,
+    loader: loaderSuccess,
+    errorElement: <ErrorView />,
   },
   {
     path: "error",

@@ -14,10 +14,6 @@ interface ParentProps {
 export const ConnectWallet = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [dataParent, setDataParent] = useState<ParentProps>();
-  console.log(
-    "🚀 ~ file: ConnectWallet.tsx:17 ~ ConnectWal ~ dataParent:",
-    dataParent
-  );
 
   const { connectWallet } = useWalletStore();
   const { currentAccount } = useWalletStore(
@@ -35,13 +31,25 @@ export const ConnectWallet = () => {
     try {
       setIsLoading(true);
       await mintToken(currentAccount);
-
-      const response = await apiPayment.post("payment/transfer", {
-        email: dataParent?.email,
-        address: currentAccount,
-        amount: 1,
-        paymentId: 1,
+      const user = await apiPayment.post("auth/login", {
+        email: import.meta.env.VITE_USER,
+        password: import.meta.env.VITE_PASSWORD,
       });
+
+      const response = await apiPayment.post(
+        "payment/transfer",
+        {
+          email: dataParent?.email,
+          address: currentAccount,
+          amount: 1,
+          paymentId: 1,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${user.data.JWT}`,
+          },
+        }
+      );
       const hash = response.data.hash;
       setIsLoading(false);
       navigate(`success/${hash}`);
@@ -64,10 +72,6 @@ export const ConnectWallet = () => {
   }, [connectWallet]);
   useEffect(() => {
     const handlerEvent = (event: MessageEvent) => {
-      console.log(
-        "🚀 ~ file: ConnectWallet.tsx:67 ~ handlerEvent ~ event:",
-        event
-      );
       if (event.origin === import.meta.env.VITE_URL_PARENT) {
         // Muestra los datos recibidos en la ventana principal
 
@@ -83,7 +87,7 @@ export const ConnectWallet = () => {
   return (
     <>
       {!currentAccount ? (
-        <section className="bg-white dark:bg-white h-screen flex items-center">
+        <section className="bg-primary] h-screen flex items-center">
           <div className="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6">
             <div className="mx-auto max-w-screen-sm text-center">
               <p className="mb-4 text-4xl tracking-tight font-bold  md:text-7xl dark:text-black">
@@ -91,7 +95,7 @@ export const ConnectWallet = () => {
               </p>
 
               <button
-                className="inline-flex text-white bg-blue-600 hover:bg-blue-800   font-medium rounded-xl text-4xl px-10 py-5 text-center  my-1"
+                className="inline-flex text-white  bg-orange hover:bg-[#FFCC00] font-medium rounded-xl text-4xl px-10 py-5 text-center  my-1"
                 onClick={handlerConnect}
               >
                 Conectar
@@ -100,18 +104,20 @@ export const ConnectWallet = () => {
           </div>
         </section>
       ) : (
-        <section className="bg-white dark:bg-white h-screen flex items-center">
+        <section className="bg-primary h-screen flex items-center">
           <div className="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6 flex flex-col items-center">
             <div className="mx-auto text-center flex items-center flex-col ">
-              <p className="mb-4 text-4xl font-bold  md:text-7xl text-black">
+              <p className="mb-4 text-4xl font-bold  md:text-7xl text-white">
                 Wallet user:
               </p>
 
-              <p className="text-5xl font-semibold ">{currentAccount}</p>
+              <p className="text-5xl font-semibold text-white">
+                {currentAccount}
+              </p>
             </div>
             {!isLoading ? (
               <button
-                className="inline-flex mt-5 text-white bg-blue-600 hover:bg-blue-800   font-medium rounded-xl text-4xl px-10 py-5 text-center  my-1"
+                className="inline-flex mt-5 text-white bg-orange hover:bg-[#FFCC00]   font-medium rounded-xl text-4xl px-10 py-5 text-center  my-1"
                 onClick={() => handlerPermit()}
               >
                 Permitir
