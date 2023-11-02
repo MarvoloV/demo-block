@@ -57,7 +57,7 @@ export const ConnectWallet = () => {
       );
       const hash = response.data.hash;
       setIsLoading(false);
-      navigate(`success/${hash}`);
+      navigate(`success/${hash}?orderid=${dataParent.orderId}`);
     } catch (error) {
       setIsLoading(false);
       navigate("error");

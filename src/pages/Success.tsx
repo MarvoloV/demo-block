@@ -1,11 +1,16 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useParams } from "react-router-dom";
+import { useParams, useSearchParams } from "react-router-dom";
 import useWalletStore from "../store/walletStore";
 import { shallow } from "zustand/shallow";
 import axios from "axios";
 
 export const Success = () => {
   const { id } = useParams() as { id: string };
+  const [searchParams] = useSearchParams();
+  console.log(
+    "🚀 ~ file: Success.tsx:10 ~ Success ~ searchParams:",
+    searchParams
+  );
   const { currentAccount } = useWalletStore(
     (state) => ({
       currentAccount: state.currentAccount,
