@@ -75,6 +75,10 @@ export const ConnectWallet = () => {
       if (event.origin === import.meta.env.VITE_URL_PARENT) {
         // Muestra los datos recibidos en la ventana principal
 
+        console.log(
+          "🚀 ~ file: ConnectWallet.tsx:75 ~ handlerEvent ~ event:",
+          event
+        );
         setDataParent(event.data);
       }
     };
