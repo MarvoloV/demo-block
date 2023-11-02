@@ -14,6 +14,10 @@ interface ParentProps {
 export const ConnectWallet = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [dataParent, setDataParent] = useState<ParentProps>();
+  console.log(
+    "🚀 ~ file: ConnectWallet.tsx:17 ~ ConnectWal ~ dataParent:",
+    dataParent
+  );
 
   const { connectWallet } = useWalletStore();
   const { currentAccount } = useWalletStore(
