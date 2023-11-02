@@ -7,8 +7,9 @@ import { ScaleLoader } from "react-spinners";
 import { useNavigate } from "react-router-dom";
 
 interface ParentProps {
-  idPago: number;
+  orderId: number;
   email: string;
+  price: string;
 }
 
 export const ConnectWallet = () => {
@@ -46,7 +47,7 @@ export const ConnectWallet = () => {
           email: dataParent?.email,
           address: currentAccount,
           amount: 1,
-          paymentId: 1,
+          paymentId: dataParent?.orderId,
         },
         {
           headers: {
