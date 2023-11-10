@@ -32,7 +32,7 @@ const useWalletStore = create(
           }
           await ethereum.request({
             method: "wallet_switchEthereumChain",
-            params: [{ chainId: import.meta.env.VITE__CHAINID }],
+            params: [{ chainId: import.meta.env.VITE_CHAINID }],
           });
 
           const accounts = await ethereum.request({
