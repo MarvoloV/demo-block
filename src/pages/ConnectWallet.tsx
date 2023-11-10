@@ -91,15 +91,15 @@ export const ConnectWallet = () => {
   return (
     <>
       {!currentAccount ? (
-        <section className="bg-primary] h-screen flex items-center">
+        <section className="bg-primary h-screen flex items-center">
           <div className="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6">
             <div className="mx-auto max-w-screen-sm text-center">
-              <p className="mb-4 text-4xl tracking-tight font-bold  md:text-7xl dark:text-black bg-primary">
+              <p className="mb-4 text-4xl tracking-tight font-bold  md:text-7xl dark:text-black ">
                 Conectar Wallet
               </p>
 
               <button
-                className="inline-flex text-white  bg-#f6851b hover:bg-[#FFCC00] font-medium rounded-xl text-4xl px-10 py-5 text-center  my-1"
+                className="inline-flex text-white  bg-[#f6851b] hover:bg-[#FFCC00] font-medium rounded-xl text-4xl px-10 py-5 text-center  my-1"
                 onClick={handlerConnect}
               >
                 Conectar
@@ -121,15 +121,15 @@ export const ConnectWallet = () => {
             </div>
             {!isLoading ? (
               <button
-                className="inline-flex mt-5 text-white bg-orange hover:bg-[#FFCC00]   font-medium rounded-xl text-4xl px-10 py-5 text-center  my-1"
+                className="inline-flex mt-5 text-white bg-[#f6851b] hover:bg-[#FFCC00]   font-medium rounded-xl text-4xl px-10 py-5 text-center  my-1"
                 onClick={() => handlerPermit()}
               >
                 Permitir
               </button>
             ) : (
               <div className="flex gap-x-3 mt-10 items-center">
-                <ScaleLoader color="#000000" height={80} />
-                <p className="text-6xl text-[#000000] font-semibold">
+                <ScaleLoader color="#FFF" height={80} />
+                <p className="text-6xl text-[#FFF] font-semibold">
                   Otorgando Permisos...
                 </p>
               </div>
