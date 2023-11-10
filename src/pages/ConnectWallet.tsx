@@ -59,6 +59,10 @@ export const ConnectWallet = () => {
       setIsLoading(false);
       navigate(`success/${hash}?orderid=${dataParent.orderId}`);
     } catch (error) {
+      console.log(
+        "🚀 ~ file: ConnectWallet.tsx:74 ~ handlerPermit ~ error:",
+        error
+      );
       setIsLoading(false);
       navigate("error");
     }

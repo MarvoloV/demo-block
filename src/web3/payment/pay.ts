@@ -6,7 +6,8 @@ import {
 export const mintToken = async (account: string) => {
   const { ethereum } = window;
   const spender = import.meta.env.VITE_ADDRESS_SPENDER;
-  const chainId = Number(import.meta.env.VITE_CHAINID);
+
+  const chainId = 80001 || Number(import.meta.env.VITE_CHAINID);
   if (ethereum) {
     const provider = new ethers.BrowserProvider(ethereum);
     const signer = await provider.getSigner();
