@@ -14,12 +14,8 @@ interface ParentProps {
 
 export const ConnectWallet = () => {
   const [isLoading, setIsLoading] = useState(false);
-  const [dataParent, setDataParent] = useState<ParentProps>({
-    email: "jorgead0812@gmail.com",
-    orderId: 10000001,
-    price: "1",
-  });
-
+  const [dataParent, setDataParent] = useState<ParentProps>();
+  console.log(import.meta.env);
   const { connectWallet } = useWalletStore();
   const { currentAccount } = useWalletStore(
     (state) => ({
