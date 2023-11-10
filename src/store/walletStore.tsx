@@ -25,9 +25,15 @@ const useWalletStore = create(
           const { ethereum } = window;
 
           if (!ethereum) {
-            alert("Man, go and get Metamask!");
+            alert(
+              "This tool works with Metamask Extension installed. Please go to https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn?hl=es and install it before start paying with crypto."
+            );
             return false;
           }
+          await ethereum.request({
+            method: "wallet_switchEthereumChain",
+            params: [{ chainId: "0x13881" }],
+          });
 
           const accounts = await ethereum.request({
             method: "eth_requestAccounts",

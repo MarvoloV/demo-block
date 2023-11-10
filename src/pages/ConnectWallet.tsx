@@ -19,7 +19,6 @@ export const ConnectWallet = () => {
     "🚀 ~ file: ConnectWallet.tsx:17 ~ ConnectWal ~ dataParent:",
     dataParent
   );
-
   const { connectWallet } = useWalletStore();
   const { currentAccount } = useWalletStore(
     (state) => ({
@@ -80,10 +79,6 @@ export const ConnectWallet = () => {
       if (event.origin === import.meta.env.VITE_URL_PARENT) {
         // Muestra los datos recibidos en la ventana principal
 
-        console.log(
-          "🚀 ~ file: ConnectWallet.tsx:75 ~ handlerEvent ~ event:",
-          event
-        );
         setDataParent(event.data);
       }
     };
@@ -99,12 +94,12 @@ export const ConnectWallet = () => {
         <section className="bg-primary] h-screen flex items-center">
           <div className="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6">
             <div className="mx-auto max-w-screen-sm text-center">
-              <p className="mb-4 text-4xl tracking-tight font-bold  md:text-7xl dark:text-black">
+              <p className="mb-4 text-4xl tracking-tight font-bold  md:text-7xl dark:text-black bg-primary">
                 Conectar Wallet
               </p>
 
               <button
-                className="inline-flex text-white  bg-orange hover:bg-[#FFCC00] font-medium rounded-xl text-4xl px-10 py-5 text-center  my-1"
+                className="inline-flex text-white  bg-#f6851b hover:bg-[#FFCC00] font-medium rounded-xl text-4xl px-10 py-5 text-center  my-1"
                 onClick={handlerConnect}
               >
                 Conectar
