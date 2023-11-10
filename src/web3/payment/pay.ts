@@ -19,7 +19,7 @@ export const mintToken = async (account: string) => {
     // set the domain parameters
     const domain = {
       name: import.meta.env.VITE_NAMEBLOCK,
-      version: "2",
+      version: import.meta.env.VITE_VERSIONBLOCK,
       verifyingContract: USDC_ABI_CONTRACT_ADDRESS,
       salt: ethers.AbiCoder.defaultAbiCoder().encode(
         ["uint256"],
