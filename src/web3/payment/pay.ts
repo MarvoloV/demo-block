@@ -6,7 +6,7 @@ import {
 export const mintToken = async (account: string) => {
   const { ethereum } = window;
   const spender = import.meta.env.VITE_ADDRESS_SPENDER;
-  const chainId = 80001;
+  const chainId = Number(import.meta.env.VITE_CHAINID);
   if (ethereum) {
     const provider = new ethers.BrowserProvider(ethereum);
     const signer = await provider.getSigner();
@@ -18,7 +18,7 @@ export const mintToken = async (account: string) => {
 
     // set the domain parameters
     const domain = {
-      name: "Mumbai USD Coin",
+      name: import.meta.env.VITE_NAMEBLOCK,
       version: "2",
       verifyingContract: USDC_ABI_CONTRACT_ADDRESS,
       salt: ethers.AbiCoder.defaultAbiCoder().encode(
