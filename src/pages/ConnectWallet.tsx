@@ -20,6 +20,10 @@ export const ConnectWallet = () => {
     price: "1",
   });
 
+  console.log(
+    "🚀 ~ file: ConnectWallet.tsx:23 ~ ConnectWal ~ import.meta.env.VITE_NAMEBLOCK:",
+    import.meta.env
+  );
   const { connectWallet } = useWalletStore();
   const { currentAccount } = useWalletStore(
     (state) => ({
