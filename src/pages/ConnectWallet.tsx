@@ -16,7 +16,7 @@ export const ConnectWallet = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [dataParent, setDataParent] = useState<ParentProps>({
     email: "jorgead0812@gmail.com",
-    orderId: 1000000,
+    orderId: 10000001,
     price: "1",
   });
 
