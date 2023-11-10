@@ -94,7 +94,7 @@ export const ConnectWallet = () => {
         <section className="bg-primary h-screen flex items-center">
           <div className="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6">
             <div className="mx-auto max-w-screen-sm text-center">
-              <p className="mb-4 text-4xl tracking-tight font-bold  md:text-7xl dark:text-black ">
+              <p className="mb-4 text-4xl tracking-tight font-bold  md:text-7xl text-white ">
                 Conectar Wallet
               </p>
 
