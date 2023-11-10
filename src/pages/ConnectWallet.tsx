@@ -99,7 +99,7 @@ export const ConnectWallet = () => {
               </p>
 
               <button
-                className="inline-flex text-white  bg-[#f6851b] hover:bg-[#FFCC00] font-medium rounded-xl text-4xl px-10 py-5 text-center  my-1"
+                className="inline-flex text-white  bg-[#f6851b] hover:bg-orange font-medium rounded-xl text-4xl px-10 py-5 text-center  my-1"
                 onClick={handlerConnect}
               >
                 Conectar
@@ -121,7 +121,7 @@ export const ConnectWallet = () => {
             </div>
             {!isLoading ? (
               <button
-                className="inline-flex mt-5 text-white bg-[#f6851b] hover:bg-[#FFCC00]   font-medium rounded-xl text-4xl px-10 py-5 text-center  my-1"
+                className="inline-flex mt-5 text-white bg-[#f6851b] hover:bg-orange   font-medium rounded-xl text-4xl px-10 py-5 text-center  my-1"
                 onClick={() => handlerPermit()}
               >
                 Permitir

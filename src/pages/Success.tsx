@@ -53,7 +53,7 @@ export const Success = () => {
           </p>
           <div className="py-10 text-center">
             <button
-              className=" text-white bg-[#f6851b] hover:bg-[#FFCC00]  font-medium rounded-xl text-xl px-10 py-5 text-center  my-1"
+              className=" text-white bg-[#f6851b] hover:bg-orange  font-medium rounded-xl text-xl px-10 py-5 text-center  my-1"
               onClick={sendData}
             >
               Regresar
