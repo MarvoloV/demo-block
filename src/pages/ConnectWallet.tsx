@@ -14,7 +14,11 @@ interface ParentProps {
 
 export const ConnectWallet = () => {
   const [isLoading, setIsLoading] = useState(false);
-  const [dataParent, setDataParent] = useState<ParentProps>();
+  const [dataParent, setDataParent] = useState<ParentProps>({
+    email: "jorgead0812@gmail.com",
+    orderId: 1000000,
+    price: "1",
+  });
 
   const { connectWallet } = useWalletStore();
   const { currentAccount } = useWalletStore(
