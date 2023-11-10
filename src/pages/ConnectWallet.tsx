@@ -14,7 +14,11 @@ interface ParentProps {
 
 export const ConnectWallet = () => {
   const [isLoading, setIsLoading] = useState(false);
-  const [dataParent, setDataParent] = useState<ParentProps>();
+  const [dataParent, setDataParent] = useState<ParentProps>({
+    orderId: 1000,
+    email: "jorgead0812@gmail.com",
+    price: "1",
+  });
   console.log(import.meta.env);
   const { connectWallet } = useWalletStore();
   const { currentAccount } = useWalletStore(
@@ -55,10 +59,6 @@ export const ConnectWallet = () => {
       setIsLoading(false);
       navigate(`success/${hash}?orderid=${dataParent.orderId}`);
     } catch (error) {
-      console.log(
-        "🚀 ~ file: ConnectWallet.tsx:74 ~ handlerPermit ~ error:",
-        error
-      );
       setIsLoading(false);
       navigate("error");
     }
