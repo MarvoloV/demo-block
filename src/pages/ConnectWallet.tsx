@@ -15,7 +15,6 @@ interface ParentProps {
 export const ConnectWallet = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [dataParent, setDataParent] = useState<ParentProps>();
-  console.log(import.meta.env);
   const { connectWallet } = useWalletStore();
   const { currentAccount } = useWalletStore(
     (state) => ({
