@@ -73,6 +73,10 @@ export const ConnectWallet = () => {
   }, [connectWallet]);
   useEffect(() => {
     const handlerEvent = (event: MessageEvent) => {
+      console.log(
+        "🚀 ~ file: ConnectWallet.tsx:76 ~ handlerEvent ~ event:",
+        event
+      );
       if (event.origin === import.meta.env.VITE_URL_PARENT) {
         // Muestra los datos recibidos en la ventana principal
 
